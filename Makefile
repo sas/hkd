@@ -1,8 +1,8 @@
-SOURCES		:= src/hkd.c
+SOURCES		:= src/hkd.c src/config.c
 DOCSOURCES	:=
 
 CC		?= g++
-CFLAGS		:= -std=c99 -Wall -Wextra
+CFLAGS		:= -std=c99 -Wall -Wextra -D_GNU_SOURCE
 LDFLAGS		:=
 PREFIX		:= /usr/local
 

@@ -1,4 +1,5 @@
-#include <assert.h>
+#include "config.h"
+
 #include <err.h>
 #include <fcntl.h>
 #include <linux/input.h>
@@ -12,40 +13,28 @@
 
 static void do_stuff(struct input_event *ev)
 {
-  if (ev->type != EV_KEY || ev->value != 0)
+  if (ev->type != EV_KEY || ev->value != 1)
     return;
 
   switch (ev->code) {
-    case KEY_BRIGHTNESSDOWN:
-      printf("b-down\n");
-      break;
-    case KEY_BRIGHTNESSUP:
-      printf("b-up\n");
-      break;
-    case KEY_KBDILLUMDOWN:
-      printf("k-down\n");
-      break;
-    case KEY_KBDILLUMUP:
-      printf("k-up\n");
-      break;
-    case KEY_MUTE:
-      printf("v-mute\n");
-      break;
-    case KEY_VOLUMEDOWN:
-      printf("v-down\n");
-      break;
-    case KEY_VOLUMEUP:
-      printf("v-up\n");
-      break;
+#define CONFIG_DEF(NAME, KEY) case KEY: printf("%s\n", #NAME); break;
+#include "config.def"
+#undef CONFIG_DEF
   }
 }
 
-int main(void)
+int main(int argc, char **argv)
 {
   int     ret;
   char    input_path[sizeof INPUT_PREFIX + sizeof '/' + sizeof INPUT_NAME + 1];
   int     fd;
   struct  input_event ev;
+
+  config_init(argc, argv);
+
+  printf("%s: %s\n", "volup", config.volume_up_cmd);
+
+  return 0;
 
   sprintf(input_path, "%s/%s", INPUT_PREFIX, INPUT_NAME);
 
@@ -83,6 +72,7 @@ cleanup:
     close(fd);
   }
 
+  config_cleanup();
 
   return EXIT_SUCCESS;
 }
