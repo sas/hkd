@@ -1,0 +1,10 @@
+[Unit]
+Description=Hot Keys Daemon
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/hkd
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
