@@ -1,14 +1,14 @@
-SOURCES		:= hkd.c
+SOURCES		:= src/hkd.c
 DOCSOURCES	:=
-PREFIX		:= /usr/local
 
 CC		?= g++
 CFLAGS		:= -std=c99 -Wall -Wextra
 LDFLAGS		:=
+PREFIX		:= /usr/local
 
-TARGET		:= hkd
 OBJECTS		:= $(SOURCES:.c=.o)
 DEPENDS		:= $(SOURCES:.c=.d)
+TARGET		:= src/hkd
 DOCTARGETS	:= $(DOCSOURCES:.1.md=.1)
 
 VPATH		:= $(dir $(lastword $(MAKEFILE_LIST)))
