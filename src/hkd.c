@@ -17,7 +17,7 @@ static void do_stuff(struct input_event *ev)
     return;
 
   switch (ev->code) {
-#define CONFIG_DEF(NAME, KEY) case KEY: printf("%s\n", #NAME); break;
+#define CONFIG_DEF(NAME, KEY) case KEY: if (config.NAME) system(config.NAME); break;
 #include "config.def"
 #undef CONFIG_DEF
   }
@@ -31,10 +31,6 @@ int main(int argc, char **argv)
   struct  input_event ev;
 
   config_init(argc, argv);
-
-  printf("%s: %s\n", "volup", config.volume_up_cmd);
-
-  return 0;
 
   sprintf(input_path, "%s/%s", INPUT_PREFIX, INPUT_NAME);
 
