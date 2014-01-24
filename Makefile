@@ -1,5 +1,5 @@
 SOURCES		:= src/hkd.c src/config.c
-DOCSOURCES	:=
+DOCSOURCES	:= doc/hkd.1.md
 
 CC		?= g++
 CFLAGS		:= -std=c99 -Wall -Wextra -D_GNU_SOURCE
