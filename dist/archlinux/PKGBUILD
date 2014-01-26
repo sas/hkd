@@ -29,6 +29,6 @@ package () {
   make PREFIX="${pkgdir}/usr" install
   install -d "${pkgdir}/etc"
   install -d "${pkgdir}/usr/lib/systemd/system"
-  install -t "${pkgdir}/etc" etc/hkd.conf
-  install -t "${pkgdir}/usr/lib/systemd/system" etc/hkd.service
+  install -t "${pkgdir}/etc" assets/hkd.conf
+  install -t "${pkgdir}/usr/lib/systemd/system" assets/hkd.service
 }
