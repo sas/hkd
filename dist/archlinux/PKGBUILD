@@ -2,7 +2,7 @@
 
 _pkgname='hkd'
 pkgname="${_pkgname}-git"
-pkgver=r9.6548836
+pkgver=r14.f1c5916
 pkgrel=1
 pkgdesc='Handle keyboard hot keys independantly of X.'
 arch=('any')
