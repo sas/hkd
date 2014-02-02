@@ -73,7 +73,7 @@ void config_init(int argc, char **argv)
 
     found = false;
 
-#define CONFIG_DEF(NAME, KEY) {                                   \
+#define CONFIG_DEF(NAME) {                                        \
   char name[] = #NAME;                                            \
                                                                   \
   strreplace(name, '_', '-');                                     \
@@ -87,8 +87,10 @@ void config_init(int argc, char **argv)
   }                                                               \
                                                                   \
 }
+#define CONFIG_KEY_DEF(NAME, KEY) CONFIG_DEF(NAME)
 #include "config.def"
 #undef CONFIG_DEF
+#undef CONFIG_KEY_DEF
 
     if (!found)
       CONFIG_ERROR("%s: invalid entry `%s'", conf_path, key);
@@ -100,6 +102,9 @@ cleanup:
 
   fclose(conf);
 
+  if (config.input_device == NULL)
+    errx(EXIT_FAILURE, "%s: no `input-device' specified", conf_path);
+
   if (found_errors)
     exit(EXIT_FAILURE);
 
@@ -108,7 +113,9 @@ cleanup:
 
 void config_cleanup(void)
 {
-#define CONFIG_DEF(NAME, KEY) free((char*) config.NAME);
+#define CONFIG_DEF(NAME) free((char*) config.NAME);
+#define CONFIG_KEY_DEF(NAME, KEY) CONFIG_DEF(NAME)
 #include "config.def"
 #undef CONFIG_DEF
+#undef CONFIG_KEY_DEF
 }
