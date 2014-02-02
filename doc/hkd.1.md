@@ -13,10 +13,6 @@ hkd - hot keys daemon
 
 Handle keyboard hot keys.
 
-## SEE ALSO
-
-hkd.conf(5)
-
 ## AUTHORS
 
 Written by Stephane Sezer `<sas@cd80.net>`.
